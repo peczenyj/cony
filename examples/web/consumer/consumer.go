@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/assembla/cony"
+	"github.com/peczenyj/cony"
 )
 
 var url = flag.String("url", "amqp://guest:guest@localhost/", "amqp url")

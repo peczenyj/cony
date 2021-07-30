@@ -12,8 +12,8 @@ The library uses [atomic.Value](http://golang.org/pkg/sync/atomic/#Value), so Go
 
 # Documentation
 
-[![GoDoc](https://godoc.org/github.com/assembla/cony?status.svg)](https://godoc.org/github.com/assembla/cony)
-[![Build Status](https://travis-ci.org/assembla/cony.svg)](https://travis-ci.org/assembla/cony)
+[![GoDoc](https://godoc.org/github.com/peczenyj/cony?status.svg)](https://godoc.org/github.com/peczenyj/cony)
+[![Build Status](https://travis-ci.org/peczenyj/cony.svg)](https://travis-ci.org/peczenyj/cony)
 
 # Thread-safety
 

@@ -3,6 +3,7 @@ package cony
 import (
 	"bytes"
 	"errors"
+	"sync"
 	"testing"
 	"time"
 
@@ -52,20 +53,19 @@ func TestConsumer_Cancel(t *testing.T) {
 }
 
 func TestConsumer_Cancel_willNotBlock(t *testing.T) {
-	var ok bool
 	c := newTestConsumer()
+
+	var wg sync.WaitGroup
+	wg.Add(1)
 
 	go func() {
 		c.Cancel()
 		c.Cancel()
 		c.Cancel()
-		ok = true
+		wg.Done()
 	}()
 
-	time.Sleep(1 * time.Microsecond) // let goroutine to work
-	if !ok {
-		t.Error("shold not block")
-	}
+	wg.Wait()
 }
 
 func TestConsumer_Deliveries(t *testing.T) {
