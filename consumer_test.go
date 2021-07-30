@@ -116,7 +116,11 @@ func TestConsumer_reportErr(t *testing.T) {
 	c := newTestConsumer()
 	testErr := errors.New("test error")
 
+	var wg sync.WaitGroup
+	wg.Add(1)
 	go func() {
+		defer wg.Done()
+
 		for i := 0; i <= 101; i++ {
 			c.reportErr(testErr)
 		}
@@ -128,6 +132,8 @@ func TestConsumer_reportErr(t *testing.T) {
 	if err != testErr {
 		t.Error("error should be the same")
 	}
+
+	wg.Wait()
 
 	if !okDefault {
 		t.Error("reportErr should not block")
