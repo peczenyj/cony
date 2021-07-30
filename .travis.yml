@@ -2,9 +2,19 @@ language: go
 
 go:
   - 1.16
+  - tip
 
 services:
   - rabbitmq
 
 env:
  - AMQP_URL=amqp://guest:guest@127.0.0.1:5672/ GOMAXPROCS=2
+
+before_install:
+  - go get -t -v ./...
+
+script:
+  - go test -coverprofile=coverage.txt -covermode=atomic
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
