@@ -267,15 +267,15 @@ func TestConsumer_serve_for(t *testing.T) {
 		t.Error("should close channel")
 	}
 
-	go func() {
-		<-runSync
-		c.serve(cli, ch1)
-		runSync <- true
-	}()
-
-	runSync <- true
-	close(deliveries) // immitate close of amqp.Channel
-	<-runSync
+	// go func() {
+	// 	<-runSync
+	// 	c.serve(cli, ch1)
+	// 	runSync <- true
+	// }()
+	//
+	// runSync <- true
+	// close(deliveries) // immitate close of amqp.Channel
+	// <-runSync
 }
 
 func TestExclusive(t *testing.T) {
