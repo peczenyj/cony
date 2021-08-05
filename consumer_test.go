@@ -124,6 +124,8 @@ func TestConsumer_reportErr(t *testing.T) {
 		t.Error("error should be the same")
 	}
 
+	wg.Wait()
+
 	if !okDefault {
 		t.Error("reportErr should not block")
 	}

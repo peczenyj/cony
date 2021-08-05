@@ -47,7 +47,7 @@ func (c *Client) Declare(d []Declaration) {
 	c.declarations = append(c.declarations, d...)
 	if ch, err := c.channel(); err == nil {
 		for _, declare := range d {
-			declare(ch)
+			_ = declare(ch)
 		}
 	}
 }

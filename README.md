@@ -11,9 +11,9 @@ Provide a way to work with AMQP declaratively
 The library uses [atomic.Value](http://golang.org/pkg/sync/atomic/#Value), so Go 1.4+ is needed.
 
 # Documentation
-
+[![codecov](https://codecov.io/gh/peczenyj/cony/branch/master/graph/badge.svg?token=BW91XYOLO5)](https://codecov.io/gh/peczenyj/cony)
 [![GoDoc](https://godoc.org/github.com/peczenyj/cony?status.svg)](https://godoc.org/github.com/peczenyj/cony)
-[![Build Status](https://travis-ci.org/peczenyj/cony.svg)](https://travis-ci.org/peczenyj/cony)
+[![Build Status](https://travis-ci.com/peczenyj/cony.svg?branch=master)](https://travis-ci.com/peczenyj/cony)
 
 # Thread-safety
 
