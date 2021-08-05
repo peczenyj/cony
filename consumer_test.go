@@ -117,14 +117,12 @@ func TestConsumer_reportErr(t *testing.T) {
 		close(done)
 	}()
 
-	<-done
-
 	err := <-c.errs
 	if err != testErr {
 		t.Error("error should be the same")
 	}
 
-	wg.Wait()
+	<-done
 
 	if !okDefault {
 		t.Error("reportErr should not block")
