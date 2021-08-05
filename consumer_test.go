@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/streadway/amqp"
+	amqp "github.com/rabbitmq/amqp091-go"
 )
 
 func TestAutoAck(t *testing.T) {
@@ -52,20 +52,11 @@ func TestConsumer_Cancel(t *testing.T) {
 }
 
 func TestConsumer_Cancel_willNotBlock(t *testing.T) {
-	var ok bool
 	c := newTestConsumer()
 
-	go func() {
-		c.Cancel()
-		c.Cancel()
-		c.Cancel()
-		ok = true
-	}()
-
-	time.Sleep(1 * time.Microsecond) // let goroutine to work
-	if !ok {
-		t.Error("shold not block")
-	}
+	c.Cancel()
+	c.Cancel()
+	c.Cancel()
 }
 
 func TestConsumer_Deliveries(t *testing.T) {
@@ -116,13 +107,17 @@ func TestConsumer_reportErr(t *testing.T) {
 	c := newTestConsumer()
 	testErr := errors.New("test error")
 
+	done := make(chan struct{})
 	go func() {
 		for i := 0; i <= 101; i++ {
 			c.reportErr(testErr)
 		}
 		okDefault = c.reportErr(testErr)
 		okNil = !c.reportErr(nil)
+		close(done)
 	}()
+
+	<-done
 
 	err := <-c.errs
 	if err != testErr {
