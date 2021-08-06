@@ -22,3 +22,7 @@ Cony is thread-safe as long as [rabbitmq/amqp091-go](https://github.com/rabbitmq
 # License
 
 BSD 2 clause - see LICENSE for more details.
+
+## Fork
+
+This is a fork of github.com/assembla/cony
