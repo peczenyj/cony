@@ -3,11 +3,10 @@ package cony
 import (
 	"bytes"
 	"errors"
-	"sync"
 	"testing"
 	"time"
 
-	"github.com/streadway/amqp"
+	amqp "github.com/rabbitmq/amqp091-go"
 )
 
 func TestAutoAck(t *testing.T) {
@@ -55,17 +54,9 @@ func TestConsumer_Cancel(t *testing.T) {
 func TestConsumer_Cancel_willNotBlock(t *testing.T) {
 	c := newTestConsumer()
 
-	var wg sync.WaitGroup
-	wg.Add(1)
-
-	go func() {
-		c.Cancel()
-		c.Cancel()
-		c.Cancel()
-		wg.Done()
-	}()
-
-	wg.Wait()
+	c.Cancel()
+	c.Cancel()
+	c.Cancel()
 }
 
 func TestConsumer_Deliveries(t *testing.T) {
@@ -116,16 +107,14 @@ func TestConsumer_reportErr(t *testing.T) {
 	c := newTestConsumer()
 	testErr := errors.New("test error")
 
-	var wg sync.WaitGroup
-	wg.Add(1)
+	done := make(chan struct{})
 	go func() {
-		defer wg.Done()
-
 		for i := 0; i <= 101; i++ {
 			c.reportErr(testErr)
 		}
 		okDefault = c.reportErr(testErr)
 		okNil = !c.reportErr(nil)
+		close(done)
 	}()
 
 	err := <-c.errs
@@ -133,7 +122,7 @@ func TestConsumer_reportErr(t *testing.T) {
 		t.Error("error should be the same")
 	}
 
-	wg.Wait()
+	<-done
 
 	if !okDefault {
 		t.Error("reportErr should not block")

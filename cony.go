@@ -1,4 +1,4 @@
-// Package cony is a high-level wrapper around http://github.com/streadway/amqp library,
+// Package cony is a high-level wrapper around http://github.com/rabbitmq/amqp091-go library,
 // for working declaratively with AMQP. Cony will manage AMQP
 // connect/reconnect to AMQP broker, along with recovery of consumers.
 package cony
@@ -6,7 +6,7 @@ package cony
 import (
 	"sync"
 
-	"github.com/streadway/amqp"
+	amqp "github.com/rabbitmq/amqp091-go"
 )
 
 // Queue hold definition of AMQP queue

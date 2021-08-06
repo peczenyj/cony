@@ -1,6 +1,6 @@
 # Cony
 
-High-level AMQP 0.9.1 client library. It's wrapper around low-level [streadway/amqp](https://github.com/streadway/amqp/) library.
+High-level AMQP 0.9.1 client library. It's wrapper around low-level [rabbitmq/amqp091-go](https://github.com/rabbitmq/amqp091-go/) library.
 
 # Goals
 
@@ -17,8 +17,12 @@ The library uses [atomic.Value](http://golang.org/pkg/sync/atomic/#Value), so Go
 
 # Thread-safety
 
-Cony is thread-safe as long as [streadway/amqp](https://github.com/streadway/amqp) is thread-safe. It's recommended to open AMQP channel per thread, so in case of `cony` it should be `Consumer` `Producer` per goroutine.
+Cony is thread-safe as long as [rabbitmq/amqp091-go](https://github.com/rabbitmq/amqp091-go) is thread-safe. It's recommended to open AMQP channel per thread, so in case of `cony` it should be `Consumer` `Producer` per goroutine.
 
 # License
 
 BSD 2 clause - see LICENSE for more details.
+
+## Fork
+
+This is a fork of github.com/assembla/cony
