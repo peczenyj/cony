@@ -34,7 +34,7 @@ type Publisher struct {
 // Template will be used, input buffer will be added as Publishing.Body.
 // return int will always be len(b)
 //
-// Implements io.Writer
+// # Implements io.Writer
 //
 // WARNING: this is blocking call, it will not return until connection is
 // available. The only way to stop it is to use Cancel() method.
@@ -117,7 +117,7 @@ func (p *Publisher) serve(client mqDeleter, ch mqChannel) {
 }
 
 // NewPublisher is a Publisher constructor
-func NewPublisher(exchange string, key string, opts ...PublisherOpt) *Publisher {
+func NewPublisher(exchange, key string, opts ...PublisherOpt) *Publisher {
 	p := &Publisher{
 		exchange: exchange,
 		key:      key,

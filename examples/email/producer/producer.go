@@ -12,8 +12,10 @@ import (
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
-var port = flag.Int("port", 3000, "listening port")
-var url = flag.String("url", "amqp://guest:guest@localhost/", "amqp url")
+var (
+	port = flag.Int("port", 3000, "listening port")
+	url  = flag.String("url", "amqp://guest:guest@localhost/", "amqp url")
+)
 
 var form = `
 	{{ if eq .status "thanks"}}

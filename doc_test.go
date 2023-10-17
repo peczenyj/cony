@@ -78,7 +78,6 @@ func Example() {
 			client.Close()
 		}
 	}
-
 }
 
 func ExampleURL() {

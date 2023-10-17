@@ -27,7 +27,7 @@ func (m *mqChannelTest) Close() error {
 	return m._Close()
 }
 
-func (m *mqChannelTest) Consume(name string, tag string, autoAck bool, exclusive bool, noLocal bool, noWait bool, args amqp.Table) (<-chan amqp.Delivery, error) {
+func (m *mqChannelTest) Consume(name, tag string, autoAck, exclusive, noLocal, noWait bool, args amqp.Table) (<-chan amqp.Delivery, error) {
 	return m._Consume(name, tag, autoAck, exclusive, noLocal, noWait, args)
 }
 
@@ -35,10 +35,10 @@ func (m *mqChannelTest) NotifyClose(c chan *amqp.Error) chan *amqp.Error {
 	return m._NotifyClose(c)
 }
 
-func (m *mqChannelTest) Publish(exchange string, key string, mandatory bool, immediate bool, msg amqp.Publishing) error {
+func (m *mqChannelTest) Publish(exchange, key string, mandatory, immediate bool, msg amqp.Publishing) error {
 	return m._Publish(exchange, key, mandatory, immediate, msg)
 }
 
-func (m *mqChannelTest) Qos(prefetchCount int, prefetchSize int, global bool) error {
+func (m *mqChannelTest) Qos(prefetchCount, prefetchSize int, global bool) error {
 	return m._Qos(prefetchCount, prefetchSize, global)
 }

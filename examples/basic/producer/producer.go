@@ -3,14 +3,16 @@ package main
 import (
 	"flag"
 	"fmt"
+	"time"
 
 	"github.com/peczenyj/cony"
 	amqp "github.com/rabbitmq/amqp091-go"
-	"time"
 )
 
-var url = flag.String("url", "amqp://guest:guest@localhost/", "amqp url")
-var body = flag.String("body", "Hello world!", "what should be sent")
+var (
+	url  = flag.String("url", "amqp://guest:guest@localhost/", "amqp url")
+	body = flag.String("body", "Hello world!", "what should be sent")
+)
 
 func showUsageAndStatus() {
 	fmt.Printf("Producer is running\n\n")

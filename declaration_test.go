@@ -13,24 +13,25 @@ type testDeclarer struct {
 }
 
 func (td *testDeclarer) QueueDeclare(name string, durable, autoDelete,
-	exclusive, noWait bool, args amqp.Table) (amqp.Queue, error) {
+	exclusive, noWait bool, args amqp.Table,
+) (amqp.Queue, error) {
 	return td._QueueDeclare(name)
 }
 
 func (td *testDeclarer) ExchangeDeclare(name, kind string, durable, autoDelete,
-	internal, noWait bool, args amqp.Table) error {
+	internal, noWait bool, args amqp.Table,
+) error {
 	return td._ExchangeDeclare()
 }
 
 func (td *testDeclarer) QueueBind(name, key, exchange string, noWait bool,
-	args amqp.Table) error {
+	args amqp.Table,
+) error {
 	return td._QueueBind()
 }
 
 func TestDeclareQueue(t *testing.T) {
-	var (
-		callOK, nameOK bool
-	)
+	var callOK, nameOK bool
 
 	q := &Queue{
 		Name: "Q1",

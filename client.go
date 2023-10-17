@@ -14,11 +14,9 @@ const (
 	run
 )
 
-var (
-	// ErrNoConnection is an indicator that currently there is no connection
-	// available
-	ErrNoConnection = errors.New("No connection available")
-)
+// ErrNoConnection is an indicator that currently there is no connection
+// available
+var ErrNoConnection = errors.New("No connection available")
 
 // ClientOpt is a Client's functional option type
 type ClientOpt func(*Client)
@@ -111,9 +109,7 @@ func (c *Client) Close() {
 // It will manage AMQP connection, run queue and exchange declarations, consumers.
 // Will start to return false once (*Client).Close() called.
 func (c *Client) Loop() bool {
-	var (
-		err error
-	)
+	var err error
 
 	if atomic.LoadInt32(&c.run) == noRun {
 		return false
@@ -170,7 +166,6 @@ func (c *Client) Loop() bool {
 				}
 			}
 		}
-
 	}()
 
 	ch, err := conn.Channel()

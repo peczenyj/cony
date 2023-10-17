@@ -100,9 +100,7 @@ func TestConsumer_Errors(t *testing.T) {
 }
 
 func TestConsumer_reportErr(t *testing.T) {
-	var (
-		okDefault, okNil bool
-	)
+	var okDefault, okNil bool
 
 	c := newTestConsumer()
 	testErr := errors.New("test error")
@@ -143,7 +141,7 @@ func TestConsumer_serve_qos(t *testing.T) {
 	c := newTestConsumer(Qos(10))
 
 	ch1 := &mqChannelTest{
-		_Qos: func(prefetchCount int, prefetchSize int, global bool) error {
+		_Qos: func(prefetchCount, prefetchSize int, global bool) error {
 			qos = prefetchCount
 			return qosError
 		},
@@ -180,7 +178,7 @@ func TestConsumer_serve_Consume(t *testing.T) {
 		_Qos: func(int, int, bool) error {
 			return nil
 		},
-		_Consume: func(name string, tag string, autoAck bool, exclusive bool, noLocal bool, noWait bool, args amqp.Table) (<-chan amqp.Delivery, error) {
+		_Consume: func(name, tag string, autoAck, exclusive, noLocal, noWait bool, args amqp.Table) (<-chan amqp.Delivery, error) {
 			return nil, consumeError
 		},
 	}

@@ -91,7 +91,7 @@ func TestPublisher_serve(t *testing.T) {
 			notifyClose = true
 			return errChan
 		},
-		_Publish: func(ex string, key string, mandatory bool, immediate bool, msg amqp.Publishing) error {
+		_Publish: func(ex, key string, mandatory, immediate bool, msg amqp.Publishing) error {
 			exchangeName = ex
 			routingKey = key
 			testMsg = &msg
@@ -162,7 +162,7 @@ func TestPublisher_serve_customRoutingKey(t *testing.T) {
 			notifyClose = true
 			return errChan
 		},
-		_Publish: func(ex string, key string, mandatory bool, immediate bool, msg amqp.Publishing) error {
+		_Publish: func(ex, key string, mandatory, immediate bool, msg amqp.Publishing) error {
 			exchangeName = ex
 			routingKey = key
 			testMsg = &msg
