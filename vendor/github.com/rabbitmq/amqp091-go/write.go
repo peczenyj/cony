@@ -1,4 +1,5 @@
 // Copyright (c) 2021 VMware, Inc. or its affiliates. All Rights Reserved.
+// Copyright (c) 2012-2021, Sean Treadway, SoundCloud Ltd.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
@@ -13,6 +14,11 @@ import (
 	"math"
 	"time"
 )
+
+func (w *writer) WriteFrameNoFlush(frame frame) (err error) {
+	err = frame.write(w.w)
+	return
+}
 
 func (w *writer) WriteFrame(frame frame) (err error) {
 	if err = frame.write(w.w); err != nil {
@@ -62,11 +68,10 @@ func (f *heartbeatFrame) write(w io.Writer) (err error) {
 // +----------+--------+-----------+----------------+------------- - -
 // | class-id | weight | body size | property flags | property list...
 // +----------+--------+-----------+----------------+------------- - -
-//    short     short    long long       short        remainder...
 //
+//	short     short    long long       short        remainder...
 func (f *headerFrame) write(w io.Writer) (err error) {
 	var payload bytes.Buffer
-	var zeroTime time.Time
 
 	if err = binary.Write(&payload, binary.BigEndian, f.ClassId); err != nil {
 		return
@@ -112,7 +117,7 @@ func (f *headerFrame) write(w io.Writer) (err error) {
 	if len(f.Properties.MessageId) > 0 {
 		mask = mask | flagMessageId
 	}
-	if f.Properties.Timestamp != zeroTime {
+	if !f.Properties.Timestamp.IsZero() {
 		mask = mask | flagTimestamp
 	}
 	if len(f.Properties.Type) > 0 {
@@ -275,7 +280,8 @@ func writeLongstr(w io.Writer, s string) (err error) {
 'S': string
 'T': time.Time
 'V': nil
-'b': byte
+'b': int8
+'B': byte
 'd': float64
 'f': float32
 'l': int64
@@ -298,8 +304,13 @@ func writeField(w io.Writer, value interface{}) (err error) {
 		enc = buf[:2]
 
 	case byte:
-		buf[0] = 'b'
+		buf[0] = 'B'
 		buf[1] = v
+		enc = buf[:2]
+
+	case int8:
+		buf[0] = 'b'
+		buf[1] = uint8(v)
 		enc = buf[:2]
 
 	case int16:
@@ -411,5 +422,5 @@ func writeTable(w io.Writer, table Table) (err error) {
 		}
 	}
 
-	return writeLongstr(w, string(buf.Bytes()))
+	return writeLongstr(w, buf.String())
 }

@@ -1,4 +1,5 @@
 // Copyright (c) 2021 VMware, Inc. or its affiliates. All Rights Reserved.
+// Copyright (c) 2012-2021, Sean Treadway, SoundCloud Ltd.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
@@ -12,7 +13,7 @@ import (
 var errDeliveryNotInitialized = errors.New("delivery not initialized")
 
 // Acknowledger notifies the server of successful or failed consumption of
-// delivieries via identifier found in the Delivery.DeliveryTag field.
+// deliveries via identifier found in the Delivery.DeliveryTag field.
 //
 // Applications can provide mock implementations in tests of Delivery handlers.
 type Acknowledger interface {
