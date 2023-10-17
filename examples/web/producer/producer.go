@@ -7,8 +7,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/peczenyj/cony"
 	amqp "github.com/rabbitmq/amqp091-go"
+
+	"github.com/peczenyj/cony"
 )
 
 var (
